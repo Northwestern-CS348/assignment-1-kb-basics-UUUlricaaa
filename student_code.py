@@ -35,3 +35,19 @@ class KnowledgeBase(object):
             ListOfBindings|False - ListOfBindings if result found, False otherwise
         """
         print("Asking {!r}".format(fact))
+
+        if not isinstance(fact, Fact):
+            print("Asking Type Error")
+            return
+
+        l_bindings = ListOfBindings()
+        FindMatch = False
+        for f in self.facts:
+            matchresult = match(fact.statement, f.statement, None);
+            if matchresult != False:
+                l_bindings.add_bindings(matchresult);
+                FindMatch = True               
+        if FindMatch == True:
+            return l_bindings
+        else:
+            return False
